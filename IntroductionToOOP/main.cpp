@@ -1,34 +1,4 @@
-﻿#include<iostream>
-using namespace std;
-
-class Point //Создаем структуру которая будет описывать точки на плоскости;
-{
-	double x;
-	double y;
-public:
-	double get_x() const
-	{
-		return x;
-    }
-	double get_y() const
-	{
-		return y;
-	}
-	void set_x(double x)
-	{
-		this -> x = x;
-	}
-	void set_y(double y)
-	{
-		this -> y = y;
-	}
-	double distance(const Point& second_point)
-	{
-		return sqrt(pow(this->x-second_point.x, 2) + pow(this->y-second_point.y, 2));
-    }
-};
-
-double distance(const Point& A, const Point& B);
+﻿#include"function.h"
 
 //#define STRUCT_POINT
 
@@ -53,10 +23,4 @@ void main()
 	D.set_y(6);
 	cout <<"Расстояние от точки А до точки D: "<< A.distance(D) << endl;
 	cout <<"Расстояние между точками A и D: "<< distance(A, D) << endl;
-	
-
-}
-double distance(const Point& A, const Point& D)
-{
-	return sqrt(pow(A.get_x() - D.get_x(), 2) + pow(A.get_y() - D.get_y(), 2));
 }

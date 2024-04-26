@@ -1,7 +1,7 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
-class Point //Создаем структуру которая будет описывать точки на плоскости;
+class Point //РЎРѕР·РґР°РµРј СЃС‚СЂСѓРєС‚СѓСЂСѓ РєРѕС‚РѕСЂР°СЏ Р±СѓРґРµС‚ РѕРїРёСЃС‹РІР°С‚СЊ С‚РѕС‡РєРё РЅР° РїР»РѕСЃРєРѕСЃС‚Рё;
 {
 	double x;
 	double y;
@@ -37,7 +37,7 @@ void main()
 	setlocale(LC_ALL, "");
 	
 #ifdef STRUCT_POINT
-	Point A; //ОбЪявление переменной типа Point
+	Point A; //РћР±РЄСЏРІР»РµРЅРёРµ РїРµСЂРµРјРµРЅРЅРѕР№ С‚РёРїР° Point
 	A.x = 2;
 	A.y = 3;
 	cout << A.x << "\t" << A.y << endl;
@@ -51,8 +51,8 @@ void main()
 	Point D;
 	D.set_x(5);
 	D.set_y(6);
-	cout <<"Расстояние от точки А до точки D: "<< A.distance(D) << endl;
-	cout <<"Расстояние между точками A и D: "<< distance(A, D) << endl;
+	cout <<"Р Р°СЃСЃС‚РѕСЏРЅРёРµ РѕС‚ С‚РѕС‡РєРё Рђ РґРѕ С‚РѕС‡РєРё D: "<< A.distance(D) << endl;
+	cout <<"Р Р°СЃСЃС‚РѕСЏРЅРёРµ РјРµР¶РґСѓ С‚РѕС‡РєР°РјРё A Рё D: "<< distance(A, D) << endl;
 	
 
 }

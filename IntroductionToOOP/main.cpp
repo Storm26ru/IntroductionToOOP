@@ -61,9 +61,6 @@ public:
 	}
 
 
-
-
-
 	~Point()
 	{
 
@@ -79,14 +76,63 @@ public:
 		cout << "CopyAssigment " << this << endl;
 		return *this;
 	}
+	Point& operator++()	//Prefix increment
+	{
+		x++;
+		y++;
+		return *this;
+	}
 
+	Point operator++(int)//Suffix increment
+	{
+		Point old = *this;
+		x++;
+		y++;
+		return old;
+	}
+	Point operator()(double x, double y)
+	{
+		set_x(x);
+		set_y(y);
+		return *this;
+	}
 };
 
+Point operator+(const Point& left, const Point& right)
+{
+	Point result;
+	result.set_x(left.get_x() + right.get_x());
+	result.set_y(left.get_y() + right.get_y());
+	return result;
+}
 double distance(const Point& A, const Point& B);
+bool operator==(const Point& left, const Point& right)
+{
+	return left.get_x() == right.get_x() && left.get_y() == right.get_y();
+	/*if (left.get_x() == right.get_x() && left.get_y() == right.get_y())
+		return true;
+	else
+		return false;*/
+}
+std::ostream& operator<<(std::ostream& os, const Point& obj)
+{
+	return os << "X = " << obj.get_x() << "\tY = " << obj.get_y();
+}
+std::istream& operator>>(std::istream& is, Point& obj)
+{
+	double x, y;
+	is >>x>>y;
+	//obj.set_x(x);
+	//obj.set_y(y);
+	obj(x, y);
+	return is;
+}
 
 //#define STRUCT_POINT
 //#define DISTANS_CHEK
 //#define DEF_CHEK
+//#define ASSIGMENT_CHEK
+//#define OPERATOR_CHEK
 
 void main()
 {
@@ -121,11 +167,27 @@ void main()
 	Point D = C;
 	D.Print();
 #endif // DEF_CHEK
+#ifdef ASSIGMENT_CHEK
 	Point A, B, C;
 	A = B = C = Point(2, 3);
 	A.Print();
 	B.Print();
 	C.Print();
+#endif // ASSIGMENT_CHEK
+
+#ifdef OPERATOR_CHEK
+	Point A(2, 3);
+	Point B(7, 8);
+	Point C = A + B;
+	C.Print();
+	C++;
+	C.Print();
+	cout << (C == B) << endl;
+#endif // OPERATOR_CHEK
+
+	Point A(2, 3);
+	cout << "Введите кординаты точки :"; cin >> A;
+	cout << A << endl;
 
 }
 double distance(const Point& A, const Point& D)

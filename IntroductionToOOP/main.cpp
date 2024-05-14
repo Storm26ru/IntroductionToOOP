@@ -188,7 +188,6 @@ void main()
 	Point A(2, 3);
 	cout << "Введите кординаты точки :"; cin >> A;
 	cout << A << endl;
-
 }
 double distance(const Point& A, const Point& D)
 {

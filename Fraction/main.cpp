@@ -103,7 +103,7 @@ public:
 		else if (integer == 0)cout << 0;
 		cout << endl;
 	}
-	Fraction noproper()
+	Fraction& noproper()
 	{
 		numerator += integer * denominator;
 		integer = 0;
@@ -133,9 +133,32 @@ public:
 };
 Fraction operator+(Fraction Left, Fraction Right)
 {
-	return Fraction(Left.noproper().get_numerator() * Right.noproper().get_denominator() + Right.noproper().get_numerator() * Left.get_denominator(),
-		Left.noproper().get_denominator() * Right.noproper().get_denominator()).proper();
+	Left.noproper();
+	Right.noproper();
+	return Fraction(Left.get_numerator() * Right.get_denominator() + Right.get_numerator() * Left.get_denominator(),
+		Left.get_denominator() * Right.get_denominator()).proper();
 }
+Fraction operator-(Fraction Left, Fraction Right) // Проверить вывод двух минусов ???
+{
+	Left.noproper();
+	Right.noproper();
+	return Fraction(Left.get_numerator() * Right.get_denominator() - Right.get_numerator() * Left.get_denominator(),
+		Left.get_denominator() * Right.get_denominator()).proper();
+}
+Fraction operator*(Fraction Left, Fraction Right)
+{
+	Left.noproper();
+	Right.noproper();
+	return Fraction(Left.get_numerator() * Right.get_numerator(), Left.get_denominator() * Right.get_denominator()).proper();
+}
+Fraction operator/(Fraction Left, Fraction Right)// проверить деление на 0 ???
+{
+	Left.noproper();
+	Right.noproper();
+	return Fraction(Left.get_numerator() * Right.get_denominator() , Left.get_denominator() *Right.get_numerator()).proper();
+}
+
+
 
 void main()
 {
@@ -156,7 +179,7 @@ void main()
 	F.print();*/
 	Fraction A(3, 1, 2);
 	Fraction B(5, 4, 5);
-	Fraction C = A + B;
+	Fraction C = A / B;
 	C.print();
 
 

@@ -109,7 +109,7 @@ public:
 		integer = 0;
 		return *this;
 	}
-	Fraction proper()
+	Fraction& proper()
 	{
 		int n, d, r;
 		if (numerator / denominator)
@@ -127,35 +127,35 @@ public:
 		denominator /= n;
 		return *this;
 	}
+	Fraction& to_reverse()
+	{
+		int bufer = numerator;
+		numerator = denominator;
+		denominator = bufer;
+		return *this;
+	}
 	
 
 	
 };
 Fraction operator+(Fraction Left, Fraction Right)
 {
-	Left.noproper();
-	Right.noproper();
-	return Fraction(Left.get_numerator() * Right.get_denominator() + Right.get_numerator() * Left.get_denominator(),
+	
+	return Fraction(Left.noproper().get_numerator() * Right.get_denominator() + Right.noproper().get_numerator() * Left.get_denominator(),
 		Left.get_denominator() * Right.get_denominator()).proper();
 }
 Fraction operator-(Fraction Left, Fraction Right) // Проверить вывод двух минусов ???
 {
-	Left.noproper();
-	Right.noproper();
-	return Fraction(Left.get_numerator() * Right.get_denominator() - Right.get_numerator() * Left.get_denominator(),
+	return Fraction(Left.noproper().get_numerator() * Right.get_denominator() - Right.noproper().get_numerator() * Left.get_denominator(),
 		Left.get_denominator() * Right.get_denominator()).proper();
 }
 Fraction operator*(Fraction Left, Fraction Right)
 {
-	Left.noproper();
-	Right.noproper();
-	return Fraction(Left.get_numerator() * Right.get_numerator(), Left.get_denominator() * Right.get_denominator()).proper();
+	return Fraction(Left.noproper().get_numerator() * Right.noproper().get_numerator(), Left.get_denominator() * Right.get_denominator()).proper();
 }
 Fraction operator/(Fraction Left, Fraction Right)// проверить деление на 0 ???
 {
-	Left.noproper();
-	Right.noproper();
-	return Fraction(Left.get_numerator() * Right.get_denominator() , Left.get_denominator() *Right.get_numerator()).proper();
+	return Left * Right.noproper().to_reverse();
 }
 
 

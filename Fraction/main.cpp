@@ -1,6 +1,12 @@
 #include<iostream>
 using namespace std;
 
+class Fraction;
+Fraction operator+(Fraction Left, Fraction Right);
+Fraction operator-(Fraction Left, Fraction Right);
+Fraction operator*(Fraction Left, Fraction Right);
+Fraction operator/(Fraction Left, Fraction Right);
+
 class Fraction
 {
 	int integer; //целое
@@ -88,6 +94,46 @@ public:
 		cout << "CopyAssignment: \t" << this << endl;
 		return *this;
 	}
+	Fraction& operator++()
+	{
+		++integer;
+		return *this;
+	}
+	Fraction& operator++(int)
+	{
+		Fraction old = *this;
+		++integer;
+		return old;
+	}
+	Fraction& operator--()
+	{
+		if (integer) --integer;
+		else numerator -= denominator;
+		return *this;
+	}
+	Fraction& operator--(int)
+	{
+		Fraction old = *this;
+		if (integer) --integer;
+		else numerator -= denominator;
+		return *this;
+	}
+	Fraction& operator+=(const Fraction& other)
+	{
+		return *this = *this + other;
+	}
+	Fraction& operator-=(const Fraction& other)
+	{
+		return *this = *this - other;
+	}
+	Fraction& operator*=(const Fraction& other)
+	{
+		return *this = *this * other;
+	}
+	Fraction& operator/=(const Fraction& other)
+	{
+		return *this = *this / other;
+	}
 
 	//					Methods:
 	void print()const
@@ -117,6 +163,7 @@ public:
 			integer = numerator / denominator;
 			numerator %= denominator;
 		}
+		if (numerator == 0) return *this ;
 		n = numerator; d = denominator;
 		while (d%n)
 		{
@@ -138,6 +185,7 @@ public:
 
 	
 };
+
 Fraction operator+(Fraction Left, Fraction Right)
 {
 	
@@ -157,6 +205,11 @@ Fraction operator/(Fraction Left, Fraction Right)// проверить деление на 0 ???
 {
 	return Left * Right.noproper().to_reverse();
 }
+bool operator==(Fraction Left, Fraction Right)
+{
+	return Left.noproper().get_numerator() *Right.get_denominator() == Right.noproper().get_numerator() * Left.get_denominator();
+}
+
 
 
 
@@ -177,10 +230,14 @@ void main()
 	Fraction F;
 	F = E; //Copy assignment
 	F.print();*/
-	Fraction A(3, 1, 2);
-	Fraction B(5, 4, 5);
-	Fraction C = A / B;
+	Fraction A(0, 14, 2);
+	Fraction B(0, 14, 2);
+	Fraction C = A + B;
 	C.print();
+	C += B;
+	--C;
+	C.print();
+	cout << (A == B) << endl;
 
 
 

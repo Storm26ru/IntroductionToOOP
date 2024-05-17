@@ -201,7 +201,7 @@ Fraction operator*(Fraction Left, Fraction Right)
 {
 	return Fraction(Left.noproper().get_numerator() * Right.noproper().get_numerator(), Left.get_denominator() * Right.get_denominator()).proper();
 }
-Fraction operator/(Fraction Left, Fraction Right)// проверить деление на 0 ???
+Fraction operator/(Fraction Left, Fraction Right)
 {
 	return Left * Right.noproper().to_reverse();
 }
@@ -209,7 +209,26 @@ bool operator==(Fraction Left, Fraction Right)
 {
 	return Left.noproper().get_numerator() *Right.get_denominator() == Right.noproper().get_numerator() * Left.get_denominator();
 }
-
+bool operator !=(Fraction Left, Fraction Right)
+{
+	return !(Left == Right);
+}
+bool operator >(Fraction Left, Fraction Right)
+{
+	return Left.noproper().get_numerator() * Right.get_denominator() > Right.noproper().get_numerator() * Left.get_denominator();
+}
+bool operator <(Fraction Left, Fraction Right)
+{
+	return Left != Right && !(Left > Right);
+}
+bool operator >=(Fraction Left, Fraction Right)
+{
+	return Left == Right || Left > Right;
+}
+bool operator <=(Fraction Left, Fraction Right)
+{
+	return Left == Right || Left < Right;
+}
 
 
 
@@ -230,14 +249,14 @@ void main()
 	Fraction F;
 	F = E; //Copy assignment
 	F.print();*/
-	Fraction A(0, 14, 2);
-	Fraction B(0, 14, 2);
+	Fraction A(1, 15, 2);
+	Fraction B(3, 15, 2);
 	Fraction C = A + B;
 	C.print();
 	C += B;
 	--C;
 	C.print();
-	cout << (A == B) << endl;
+	cout << (A <=B) << endl;
 
 
 

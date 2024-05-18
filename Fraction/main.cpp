@@ -192,7 +192,7 @@ Fraction operator+(Fraction Left, Fraction Right)
 	return Fraction(Left.noproper().get_numerator() * Right.get_denominator() + Right.noproper().get_numerator() * Left.get_denominator(),
 		Left.get_denominator() * Right.get_denominator()).proper();
 }
-Fraction operator-(Fraction Left, Fraction Right) // Проверить вывод двух минусов ???
+Fraction operator-(Fraction Left, Fraction Right)
 {
 	return Fraction(Left.noproper().get_numerator() * Right.get_denominator() - Right.noproper().get_numerator() * Left.get_denominator(),
 		Left.get_denominator() * Right.get_denominator()).proper();

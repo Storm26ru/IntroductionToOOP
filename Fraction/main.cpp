@@ -160,7 +160,7 @@ public:
 		int bufer_numerator, bufer_denominator, gcd;
 		if (numerator / denominator)
 		{
-			integer = numerator / denominator;
+			integer += numerator / denominator;
 			numerator %= denominator;
 		}
 		if (numerator == 0) return *this ;
@@ -276,7 +276,8 @@ void main()
 	C += B;
 	--C;
 	C.print();
-	cout << A << endl;
+	cin >> A;
+	cout << A.proper() << endl;
 
 
 

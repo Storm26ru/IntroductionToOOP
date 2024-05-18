@@ -1,4 +1,4 @@
-#include<iostream>
+п»ї#include<iostream>
 using namespace std;
 
 class Fraction;
@@ -9,9 +9,9 @@ Fraction operator/(Fraction Left, Fraction Right);
 
 class Fraction
 {
-	int integer; //целое
-	int numerator; //числитель
-	int denominator;//знаменатель
+	int integer; //С†РµР»РѕРµ
+	int numerator; //С‡РёСЃР»РёС‚РµР»СЊ
+	int denominator;//Р·РЅР°РјРµРЅР°С‚РµР»СЊ
 public:
 	int get_integer()const
 	{
@@ -167,7 +167,7 @@ public:
 		bufer_numerator = numerator; bufer_denominator = denominator;
 		while (bufer_denominator%bufer_numerator)
 		{
-			gcd = bufer_denominator % bufer_numerator;//наибольший общий делитель (алгоритм Евклида)
+			gcd = bufer_denominator % bufer_numerator;//РЅР°РёР±РѕР»СЊС€РёР№ РѕР±С‰РёР№ РґРµР»РёС‚РµР»СЊ (Р°Р»РіРѕСЂРёС‚Рј Р•РІРєР»РёРґР°)
 			bufer_denominator = bufer_numerator; bufer_numerator = gcd;
 		}
 		numerator /= bufer_numerator;
@@ -192,7 +192,7 @@ Fraction operator+(Fraction Left, Fraction Right)
 	return Fraction(Left.noproper().get_numerator() * Right.get_denominator() + Right.noproper().get_numerator() * Left.get_denominator(),
 		Left.get_denominator() * Right.get_denominator()).proper();
 }
-Fraction operator-(Fraction Left, Fraction Right) // Проверить вывод двух минусов ???
+Fraction operator-(Fraction Left, Fraction Right) // РџСЂРѕРІРµСЂРёС‚СЊ РІС‹РІРѕРґ РґРІСѓС… РјРёРЅСѓСЃРѕРІ ???
 {
 	return Fraction(Left.noproper().get_numerator() * Right.get_denominator() - Right.noproper().get_numerator() * Left.get_denominator(),
 		Left.get_denominator() * Right.get_denominator()).proper();

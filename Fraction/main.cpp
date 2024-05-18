@@ -134,7 +134,7 @@ public:
 	{
 		return *this = *this / other;
 	}
-
+	
 	//					Methods:
 	void print()const
 	{
@@ -157,21 +157,21 @@ public:
 	}
 	Fraction& proper()
 	{
-		int n, d, r;
+		int bufer_numerator, bufer_denominator, gcd;
 		if (numerator / denominator)
 		{
 			integer = numerator / denominator;
 			numerator %= denominator;
 		}
 		if (numerator == 0) return *this ;
-		n = numerator; d = denominator;
-		while (d%n)
+		bufer_numerator = numerator; bufer_denominator = denominator;
+		while (bufer_denominator%bufer_numerator)
 		{
-			r = d % n;
-			d = n; n = r;
+			gcd = bufer_denominator % bufer_numerator;//наибольший общий делитель (алгоритм Евклида)
+			bufer_denominator = bufer_numerator; bufer_numerator = gcd;
 		}
-		numerator /= n;
-		denominator /= n;
+		numerator /= bufer_numerator;
+		denominator /= bufer_numerator;
 		return *this;
 	}
 	Fraction& to_reverse()
@@ -230,8 +230,28 @@ bool operator <=(Fraction Left, Fraction Right)
 	return Left == Right || Left < Right;
 }
 
+std::ostream& operator<<(std::ostream& os, const Fraction& obj)
+{
+	if (obj.get_integer())os << obj.get_integer();
+	if (obj.get_numerator())
+	{
+		if (obj.get_integer())os << "(";
+		os << obj.get_numerator() << "/" << obj.get_denominator();
+		if (obj.get_integer())os << ")";
 
-
+	}
+	else if (obj.get_integer() == 0)os << 0;
+	return os;
+}
+std::istream& operator>>(std::iostream& is, Fraction& obj)
+{
+	int integer, numerator, denominator;
+	is >> integer >> numerator >> denominator;
+	obj.set_integer(integer);
+	obj.set_numerator(numerator);
+	obj.set_denominator(denominator);
+	return is;
+}
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -256,7 +276,7 @@ void main()
 	C += B;
 	--C;
 	C.print();
-	cout << (A <=B) << endl;
+	cout << A << endl;
 
 
 

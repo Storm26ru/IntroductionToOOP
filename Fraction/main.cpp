@@ -243,7 +243,7 @@ std::ostream& operator<<(std::ostream& os, const Fraction& obj)
 	else if (obj.get_integer() == 0)os << 0;
 	return os;
 }
-std::istream& operator>>(std::iostream& is, Fraction& obj)
+std::istream& operator>>(std::istream& is, Fraction& obj)
 {
 	int integer, numerator, denominator;
 	is >> integer >> numerator >> denominator;

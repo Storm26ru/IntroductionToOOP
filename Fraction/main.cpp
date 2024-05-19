@@ -99,7 +99,7 @@ public:
 		++integer;
 		return *this;
 	}
-	Fraction& operator++(int)
+	Fraction operator++(int)
 	{
 		Fraction old = *this;
 		++integer;
@@ -111,7 +111,7 @@ public:
 		else numerator -= denominator;
 		return *this;
 	}
-	Fraction& operator--(int)
+	Fraction operator--(int)
 	{
 		Fraction old = *this;
 		if (integer) --integer;
@@ -269,18 +269,16 @@ void main()
 	Fraction F;
 	F = E; //Copy assignment
 	F.print();*/
-	Fraction A(1, 15, 2);
-	Fraction B(3, 15, 2);
-	Fraction C = A + B;
-	C.print();
-	C += B;
-	--C;
-	C.print();
-	cin >> A;
-	cout << A.proper() << endl;
-
-
-
+	Fraction A(3, 1, 2);
+	Fraction B(5, 4, 5);
+	cout << "Арифметические операторы" << endl; cout << A + B << "\t" << B - A << "\t" << A * B << "\t" << A / B << endl;
+	cout << "Икремент/ Дикремент" << endl; cout << ++A << endl; cout << A++ << endl; cout << --A << endl; cout << A-- << endl;
+	cout << "Составные операторы " << endl; cout << (A += B) << endl; cout << (A -= B) << endl; cout << (A *= B) << endl; cout << (A /= B) << endl;
+	cout << "Операторы сравнения" << endl; cout << (A == B) << endl; cout << (A != B) << endl; cout << (A > B) << endl; cout << (A < B) << endl;
+	cout << (A >= B) << endl; cout << (A <= B) << endl;
+	cout << "Введите правильную дробь: "; cin >> A;
+	cout << A << endl;
+	
 
 
 }

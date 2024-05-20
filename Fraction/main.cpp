@@ -1,4 +1,5 @@
-﻿#include<iostream>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include<iostream>
 using namespace std;
 
 class Fraction;
@@ -57,12 +58,22 @@ public:
 
 
 	}
-	Fraction( int numerator, int denominator)
+	Fraction(double number)
+	{
+		integer = 0;
+		numerator = number*10000; //Точность 4 знака после запятой
+		denominator = 10000;
+		proper();
+		cout << "DoubleConstructor:\t" << this << endl;
+
+
+	}
+	Fraction(int numerator, int denominator)
 	{
 		this->integer = 0;
 		set_numerator(numerator);
 		set_denominator(denominator);
-		cout << "Constructor:\t\t" <<this<< endl;
+		cout << "Constructor:\t\t" << this << endl;
 	}
 	Fraction(int integer, int numerator, int denominator)
 	{
@@ -133,6 +144,16 @@ public:
 	Fraction& operator/=(const Fraction& other)
 	{
 		return *this = *this / other;
+	}
+
+	//					Type-cast operators:
+	operator int()
+	{
+		return integer;
+	}
+	operator double()
+	{
+		return integer + (double)numerator / denominator;
 	}
 	
 	//					Methods:
@@ -269,7 +290,7 @@ void main()
 	Fraction F;
 	F = E; //Copy assignment
 	F.print();*/
-	Fraction A(3, 1, 2);
+	/*Fraction A(3, 1, 2);
 	Fraction B(5, 4, 5);
 	cout << "Арифметические операторы" << endl; cout << A + B << "\t" << B - A << "\t" << A * B << "\t" << A / B << endl;
 	cout << "Икремент/ Дикремент" << endl; cout << ++A << endl; cout << A++ << endl; cout << --A << endl; cout << A-- << endl;
@@ -277,8 +298,12 @@ void main()
 	cout << "Операторы сравнения" << endl; cout << (A == B) << endl; cout << (A != B) << endl; cout << (A > B) << endl; cout << (A < B) << endl;
 	cout << (A >= B) << endl; cout << (A <= B) << endl;
 	cout << "Введите правильную дробь: "; cin >> A;
-	cout << A << endl;
+	cout << A << endl;*/
 	
-
-
+	Fraction A(2, 3, 4);
+	double a = A;
+	cout << A << " = " << a << endl;
+	Fraction B = 2.75;
+	cout << B << endl;
+	
 }

@@ -6,11 +6,13 @@ class String
 	char* string;
 	int size;
 
-	String& create_string(const char* string)
+	String& create_string(const char* string, int size = 0)
 	{
-		size = strlen(string);
-		this->string = new char[size+1];
-		for (int i = 0; i <= size; i++) this->string[i] = string[i];
+		if (size) this->size = size;
+		else this->size = strlen(string)+1;
+		this->string = new char[this->size]{};
+		for (int i = 0; string[i]; i++) this->string[i] = string[i];
+		//for (int i = 0; i<this->size; i++) this->string[i] = string[i];
 		return *this;
 	}
 public:
@@ -29,9 +31,10 @@ public:
 	}
 
 	//					Constructors:
-	String()
+	String(int size = 80)
 	{
-		string = new char[80]; string[79] = 0;
+		this->size = size;
+		string = new char[size] {};
 		cout << "DefultConstructor" << " " << this << endl;
 	}
 	String(const char* string)
@@ -42,7 +45,7 @@ public:
 	
 	String(const String& other)
 	{
-		create_string(other.string);
+		create_string(other.string,other.Get_size());
 		cout << "CopyConstructor" << "\t" << this << endl;
 	}
 
@@ -56,7 +59,7 @@ public:
 	String& operator=(const String& other)
 	{
 		delete[] this->string;
-		create_string(other.string);
+		create_string(other.string,other.Get_size());
 		cout << "CopyAssigment " << this << endl;
 		return *this;
 	}
@@ -65,19 +68,10 @@ public:
 
 String operator+(const String& left, const String& right)
 {
-	char* bufer = new char[left.Get_size() + right.Get_size()+2];
-	for (int i = 0; i <= (left.Get_size() + right.Get_size()+1); i++)
-	{
-		if (i <=left.Get_size())
-		{
-			bufer[i] = left.Get_string()[i];
-			if (bufer[i] == 0)bufer[i] = ' ';
-		}
-		else bufer[i] = right.Get_string()[i-(left.Get_size()+1)];
-	}
-	String Split(bufer);
-	delete[] bufer;
-	return Split;
+	String concatenation(left.Get_size() + right.Get_size()-1);
+	for (int i = 0; i < left.Get_size(); i++) concatenation.Get_string()[i] = left.Get_string()[i];
+	for (int i = 0; i < right.Get_size(); i++) concatenation.Get_string()[left.Get_size() - 1 + i] = right.Get_string()[i];
+	return concatenation;
 	
 }
 
@@ -92,11 +86,11 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 void main()
 {
 	setlocale(LC_ALL, "");
-
 	String str1 = "Hellow";
 	String str2 = "World";
 	String str3 = str1 + str2;
-	cout << str3<<endl;
+	cout << str3 << endl;
+	
 
 
 

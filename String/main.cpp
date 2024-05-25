@@ -31,7 +31,7 @@ public:
 	}
 
 	//					Constructors:
-	String(int size = 80)
+	explicit String(int size = 80)
 	{
 		this->size = size;
 		string = new char[size] {};
@@ -63,6 +63,10 @@ public:
 		cout << "CopyAssigment " << this << endl;
 		return *this;
 	}
+	/*char operator[](int i)
+	{
+		return string[i];
+	}*/
 };
 
 
@@ -90,6 +94,7 @@ void main()
 	String str2 = "World";
 	String str3 = str1 + str2;
 	cout << str3 << endl;
+	
 	
 
 

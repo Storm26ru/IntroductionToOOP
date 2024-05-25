@@ -157,18 +157,19 @@ public:
 	}
 	
 	//					Methods:
-	void print()const
+	std::ostream& print(std::ostream& os=std::cout)const
 	{
-		if (integer)cout << integer;
+		if (integer)os << integer;
 		if (numerator)
 		{
-			if (integer)cout << "(";
-			cout << numerator << "/" << denominator;
-			if (integer)cout << ")";
+			if (integer)os << "(";
+			os << numerator << "/" << denominator;
+			if (integer)os << ")";
 
 		}
-		else if (integer == 0)cout << 0;
-		cout << endl;
+		else if (integer == 0)os << 0;
+		//os << endl;
+		return os;
 	}
 	Fraction& noproper()
 	{
@@ -266,11 +267,25 @@ std::ostream& operator<<(std::ostream& os, const Fraction& obj)
 }
 std::istream& operator>>(std::istream& is, Fraction& obj)
 {
-	int integer, numerator, denominator;
-	is >> integer >> numerator >> denominator;
-	obj.set_integer(integer);
-	obj.set_numerator(numerator);
-	obj.set_denominator(denominator);
+	const int SIZE = 256;
+	char bufer[SIZE]{};
+	is >> bufer;
+	int n = 0;
+	int numbers[3];
+	char delimiters[] = "(/ )";
+	for (char* pch = strtok(bufer, delimiters); pch; pch = strtok(NULL, delimiters)) numbers[n++] = std::atoi(pch);
+	obj = Fraction();
+	switch (n)
+	{
+	case 1: obj.set_integer(numbers[0]); break;
+	case 2: 
+		obj.set_numerator(numbers[0]);
+		obj.set_denominator(numbers[1]); break;
+	case 3:
+		obj.set_integer(numbers[0]);
+		obj.set_numerator(numbers[1]);
+		obj.set_denominator(numbers[2]);
+	}
 	return is;
 }
 void main()

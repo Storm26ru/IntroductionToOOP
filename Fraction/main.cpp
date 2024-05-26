@@ -60,8 +60,8 @@ public:
 	}
 	Fraction(double number)
 	{
-		integer = 0;
-		numerator = number*10000; //Точность 4 знака после запятой
+		integer = 0; //целую часть выделит метод proper
+		numerator = number*10000+0.1; //Точность 4 знака после запятой
 		denominator = 10000;
 		proper();
 		cout << "DoubleConstructor:\t" << this << endl;
@@ -320,5 +320,6 @@ void main()
 	cout << A << " = " << a << endl;
 	Fraction B = 2.75;
 	cout << B << endl;
+	
 	
 }

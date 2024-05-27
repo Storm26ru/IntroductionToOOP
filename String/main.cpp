@@ -94,12 +94,10 @@ std::ostream& operator<<(std::ostream& os, const String& obj)
 
 String operator+(const String& left, const String& right)
 {
-	String cat(left.get_size() + right.get_size() - 1);		
-	for (int i = 0; i < left.get_size(); i++)
-		cat[i] = left[i];
-	for (int i = 0; i < right.get_size(); i++)
-		cat[i + left.get_size() - 1] = right[i];
-	return cat;
+	String concatenation(left.get_size() + right.get_size() - 1);
+	for (int i = 0; i < left.get_size(); i++) concatenation[i] = left[i];
+	for (int i = 0; i < right.get_size(); i++) concatenation[i + left.get_size() - 1] = right[i];
+	return concatenation;
 }
 
 

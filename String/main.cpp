@@ -4,7 +4,7 @@ using namespace std;
 class String
 {
 	int size;	
-	char* str;	
+	char* string;	
 public:
 	int get_size()const
 	{
@@ -12,42 +12,41 @@ public:
 	}
 	const char* get_str()const
 	{
-		return str;
+		return string;
 	}
 	char* get_str()
 	{
-		return str;
+		return string;
 	}
 
 	//				Constructors:
-	explicit String(int size = 80) :size(size), str(new char[size] {})
+	explicit String(int size = 80) :size(size), string(new char[size] {})
 	{
 		
 		cout << "DefaultConstructor:\t" << this << endl;
 	}
-	String(const char* str) :size(strlen(str) + 1), str(new char[size] {})
+	String(const char* stirng) :size(strlen(stirng) + 1), string(new char[size] {})
 	{
-		
-		for (int i = 0; str[i]; i++)this->str[i] = str[i];
+		for (int i = 0; stirng[i]; i++)this->string[i] = stirng[i];
 		cout << "Constructor:\t\t" << this << endl;
 	}
 	
-	String(const String& other) :size(other.size), str(new char[size] {})
+	String(const String& other) :size(other.size), string(new char[size] {})
 	{
 		
-		for (int i = 0; other.str[i]; i++)this->str[i] = other.str[i];
+		for (int i = 0; other.string[i]; i++)this->string[i] = other.string[i];
 		cout << "CopyConstructor:\t" << this << endl;
 	}
-	String(String&& other) :size(other.size), str(other.str)
+	String(String&& other) :size(other.size), string(other.string)
 	{
 		
-		other.str = nullptr;
+		other.string = nullptr;
 		other.size = 0;
 		cout << "MoveConstructor:\t" << this << endl;
 	}
 	~String()
 	{
-		delete[] str;
+		delete[] string;
 		cout << "Destructor:\t\t" << this << endl;
 	}
 
@@ -56,20 +55,20 @@ public:
 	{
 		
 		if (this == &other)return *this;
-		delete[] this->str;
+		delete[] this->string;
 		this->size = other.size;
-		this->str = new char[size] {};
-		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
+		this->string = new char[size] {};
+		for (int i = 0; i < size; i++)this->string[i] = other.string[i];
 		cout << "CopyAssignment:\t\t" << this << endl;
 		return *this;
 	}
 	String& operator=(String&& other)
 	{
 		if (this == &other)return *this;
-		delete[] this->str;
+		delete[] this->string;
 		this->size = other.size;
-		this->str = other.str;
-		other.str = nullptr;
+		this->string = other.string;
+		other.string = nullptr;
 		other.size = 0;
 		cout << "MoveAssignment:\t\t" << this << endl;
 		return *this;
@@ -77,11 +76,11 @@ public:
 
 	char operator[](int i)const
 	{
-		return str[i];
+		return string[i];
 	}
 	char& operator[](int i)
 	{
-		return str[i];
+		return string[i];
 	}
 
 	

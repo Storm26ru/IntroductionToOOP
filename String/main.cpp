@@ -96,7 +96,7 @@ String operator+(const String& left, const String& right)
 {
 	String concatenation(left.get_size() + right.get_size() - 1);
 	for (int i = 0; i < left.get_size(); i++) concatenation[i] = left[i];
-	for (int i = 0; i < right.get_size(); i++) concatenation[i + left.get_size() - 1] = right[i];
+	for (int i = 0; i < right.get_size(); i++) concatenation[left.get_size() - 1 + i] = right[i];
 	return concatenation;
 }
 

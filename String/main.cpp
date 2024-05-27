@@ -6,17 +6,13 @@ class String
 	char* string;
 	int size;
 
-	String& create_string(const char* string, int size = 0)
-	{
-		if (size) this->size = size;
-		else this->size = strlen(string)+1;
-		this->string = new char[this->size]{};
-		for (int i = 0; string[i]; i++) this->string[i] = string[i];
-		//for (int i = 0; i<this->size; i++) this->string[i] = string[i];
-		return *this;
-	}
+
 public:
-	char* Get_string()const
+	const char* Get_string()const
+	{
+		return string;
+	}
+	char* Get_string()
 	{
 		return string;
 	}
@@ -24,11 +20,7 @@ public:
 	{
 		return size;
 	}
-	void Set_string(const char* string)
-	{
-		delete[] this->string;
-		create_string(string);
-	}
+
 
 	//					Constructors:
 	explicit String(int size = 80)
@@ -39,15 +31,28 @@ public:
 	}
 	String(const char* string)
 	{
-		create_string(string);
+		this->size = strlen(string)+1;
+		this->string = new char[this->size]{};
+		for (int i = 0; string[i]; i++) this->string[i] = string[i];
 		cout << "Constructor" << "\t" << this << endl;
 	}
 	
 	String(const String& other)
 	{
-		create_string(other.string,other.Get_size());
+		this->size = other.size;
+		this->string = new char[size] {};
+		for (int i = 0; other.string[i]; i++) this->string[i] = other.string[i];
 		cout << "CopyConstructor" << "\t" << this << endl;
 	}
+	String(String&& other)
+	{
+		this->string = other.string;
+		this->size = other.size;
+		other.string = nullptr;
+		other.size = 0;
+		cout << "MoveConstructor" << "\t" << this << endl;
+	}
+
 
 	~String()
 	{
@@ -58,23 +63,41 @@ public:
 	//					Operator
 	String& operator=(const String& other)
 	{
+		if (this == &other)return *this;
 		delete[] this->string;
-		create_string(other.string,other.Get_size());
+		this->size = other.size;
+		for (int i = 0; other.string[i]; i++) this->string[i] = other.string[i];
 		cout << "CopyAssigment " << this << endl;
 		return *this;
 	}
-	/*char operator[](int i)
+	String& operator=(String&& other)
+	{
+		if (this == &other)return *this;
+		delete[] this->string;
+		this->string = other.string;
+		this->size = other.size;
+		other.string = nullptr;
+		other.size = 0;
+		cout << "MoveAssigment" << "\t" << this << endl;
+		return *this;
+	}
+	
+	char operator[](int i)const
 	{
 		return string[i];
-	}*/
+	}
+	char& operator[](int i)
+	{
+		return string[i];
+	}
 };
 
 
 String operator+(const String& left, const String& right)
 {
 	String concatenation(left.Get_size() + right.Get_size()-1);
-	for (int i = 0; i < left.Get_size(); i++) concatenation.Get_string()[i] = left.Get_string()[i];
-	for (int i = 0; i < right.Get_size(); i++) concatenation.Get_string()[left.Get_size() - 1 + i] = right.Get_string()[i];
+	for (int i = 0; i < left.Get_size(); i++) concatenation[i] = left[i];
+	for (int i = 0; i < right.Get_size(); i++) concatenation[left.Get_size() - 1 + i] = right[i];
 	return concatenation;
 	
 }
@@ -92,8 +115,10 @@ void main()
 	setlocale(LC_ALL, "");
 	String str1 = "Hellow";
 	String str2 = "World";
-	String str3 = str1 + str2;
+	String str3;
+	str3 = str1 + str2;
 	cout << str3 << endl;
+	
 	
 	
 

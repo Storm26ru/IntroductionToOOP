@@ -3,108 +3,103 @@ using namespace std;
 
 class String
 {
-	char* string;
-	int size;
-
-
+	int size;	
+	char* str;	
 public:
-	const char* Get_string()const
-	{
-		return string;
-	}
-	char* Get_string()
-	{
-		return string;
-	}
-	int Get_size()const
+	int get_size()const
 	{
 		return size;
 	}
-
-
-	//					Constructors:
-	explicit String(int size = 80)
+	const char* get_str()const
 	{
-		this->size = size;
-		string = new char[size] {};
-		cout << "DefultConstructor" << " " << this << endl;
+		return str;
 	}
-	String(const char* string)
+	char* get_str()
 	{
-		this->size = strlen(string)+1;
-		this->string = new char[this->size]{};
-		for (int i = 0; string[i]; i++) this->string[i] = string[i];
-		cout << "Constructor" << "\t" << this << endl;
+		return str;
+	}
+
+	//				Constructors:
+	explicit String(int size = 80) :size(size), str(new char[size] {})
+	{
+		
+		cout << "DefaultConstructor:\t" << this << endl;
+	}
+	String(const char* str) :size(strlen(str) + 1), str(new char[size] {})
+	{
+		
+		for (int i = 0; str[i]; i++)this->str[i] = str[i];
+		cout << "Constructor:\t\t" << this << endl;
 	}
 	
-	String(const String& other)
+	String(const String& other) :size(other.size), str(new char[size] {})
 	{
-		this->size = other.size;
-		this->string = new char[size] {};
-		for (int i = 0; other.string[i]; i++) this->string[i] = other.string[i];
-		cout << "CopyConstructor" << "\t" << this << endl;
+		
+		for (int i = 0; other.str[i]; i++)this->str[i] = other.str[i];
+		cout << "CopyConstructor:\t" << this << endl;
 	}
-	String(String&& other)
+	String(String&& other) :size(other.size), str(other.str)
 	{
-		this->string = other.string;
-		this->size = other.size;
-		other.string = nullptr;
+		
+		other.str = nullptr;
 		other.size = 0;
-		cout << "MoveConstructor" << "\t" << this << endl;
+		cout << "MoveConstructor:\t" << this << endl;
 	}
-
-
 	~String()
 	{
-		delete[] string;
-		cout << "Destructor" << "\t" << this << endl;
+		delete[] str;
+		cout << "Destructor:\t\t" << this << endl;
 	}
 
-	//					Operator
+	//			Operators:
 	String& operator=(const String& other)
 	{
+		
 		if (this == &other)return *this;
-		delete[] this->string;
+		delete[] this->str;
 		this->size = other.size;
-		for (int i = 0; other.string[i]; i++) this->string[i] = other.string[i];
-		cout << "CopyAssigment " << this << endl;
+		this->str = new char[size] {};
+		for (int i = 0; i < size; i++)this->str[i] = other.str[i];
+		cout << "CopyAssignment:\t\t" << this << endl;
 		return *this;
 	}
 	String& operator=(String&& other)
 	{
 		if (this == &other)return *this;
-		delete[] this->string;
-		this->string = other.string;
+		delete[] this->str;
 		this->size = other.size;
-		other.string = nullptr;
+		this->str = other.str;
+		other.str = nullptr;
 		other.size = 0;
-		cout << "MoveAssigment" << "\t" << this << endl;
+		cout << "MoveAssignment:\t\t" << this << endl;
 		return *this;
 	}
-	
+
 	char operator[](int i)const
 	{
-		return string[i];
+		return str[i];
 	}
 	char& operator[](int i)
 	{
-		return string[i];
+		return str[i];
 	}
-};
 
-
-String operator+(const String& left, const String& right)
-{
-	String concatenation(left.Get_size() + right.Get_size()-1);
-	for (int i = 0; i < left.Get_size(); i++) concatenation[i] = left[i];
-	for (int i = 0; i < right.Get_size(); i++) concatenation[left.Get_size() - 1 + i] = right[i];
-	return concatenation;
 	
-}
+};
 
 std::ostream& operator<<(std::ostream& os, const String& obj)
 {
-	return os << obj.Get_string();
+	return os << obj.get_str();
+}
+
+String operator+(const String& left, const String& right)
+{
+	String cat(left.get_size() + right.get_size() - 1);		
+	for (int i = 0; i < left.get_size(); i++)
+		cat[i] = left[i];
+	for (int i = 0; i < right.get_size(); i++)
+		cat[i + left.get_size() - 1] = right[i];
+	return cat;
 }
 
 
@@ -115,8 +110,7 @@ void main()
 	setlocale(LC_ALL, "");
 	String str1 = "Hellow";
 	String str2 = "World";
-	String str3;
-	str3 = str1 + str2;
+	String str3; str3 = str1 + str2;
 	cout << str3 << endl;
 	
 	
